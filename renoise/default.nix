@@ -1,6 +1,13 @@
 { stdenv, requireFile, demo ? true, fetchurl, makeConfortable, ... }:
 
 let
+ 
+  rns-installer = 
+    fetchurl {
+      url = "http://files.renoise.com/demo/Renoise_3_0_1_Demo_x86_64.tar.bz2";
+      sha256 = "1q7f94wz2dbz659kpp53a3n1qyndsk0pkb29lxdff4pc3ddqwykg";
+    };
+ 
   renoise =
     stdenv.mkDerivation {
       name = "renoise";
@@ -8,11 +15,7 @@ let
       phases = "unpackPhase installPhase";
 
       src =
-        if demo then
-          fetchurl {
-            url = "http://files.renoise.com/demo/Renoise_3_0_1_Demo_x86_64.tar.bz2";
-            sha256 = "1q7f94wz2dbz659kpp53a3n1qyndsk0pkb29lxdff4pc3ddqwykg";
-          }
+        if demo then rns-installer
         else
           if builtins.currentSystem == "x86_64-linux" then
             requireFile {
@@ -42,4 +45,3 @@ in
     bin = "renoise";
     resources = "lib";
   }
-

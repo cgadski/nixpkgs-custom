@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, unzip, makeConfortable }:
+{ stdenv, fetchurl, unzip, makeConfortable, ... }:
 
 let
   tib = 
@@ -10,7 +10,7 @@ let
           then
             fetchurl {
               url = "https://files.spellbook.com/download/tib-unity-linux.zip";
-              sha256 = "0qy5nly3vkvlzm32w85j1bn7x1qs49kx2nmlyp1pq1xnn70b2zny";
+              sha256 = "0cahbbw5d4fg6wirsckcjfwbzgsfb7g1dxngw95ldcdakj7pj5la";
             }
           else throw "incompatible system";
 
