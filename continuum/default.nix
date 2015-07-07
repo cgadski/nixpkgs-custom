@@ -17,7 +17,6 @@ let
     name = wine.name; phases = "installPhase";
     installPhase = ''
       mkdir -p $out; cp -r ${wine}/* $out
-      rm $out/lib/wine/kernel32.dll.so
       cp ${patched-kernel} $out/lib/wine/kernel32.dll.so
     '';
     };
