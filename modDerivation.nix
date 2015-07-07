@@ -12,8 +12,9 @@ stdenv.mkDerivation {
     mkdir ./base/
     cp -r $src/* ./base/
     ${modifier};
-    for f in $(find . -type f); do
-      substituteInPlace $f --replace $src $out
+    for f in $(find ./base -type f); do
+      echo $f
+      substituteInPlace $f --replace "$src" "$out"
     done;
     mkdir -p $out
     cp -r ./base/* $out
