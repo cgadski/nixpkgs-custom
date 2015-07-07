@@ -1,0 +1,11 @@
+--- a/dlls/kernel32/process.c
++++ b/dlls/kernel32/process.c
+@@ -2903,6 +2903,8 @@
+     OBJECT_ATTRIBUTES   attr;
+     CLIENT_ID           cid;
+
++    if (access & PROCESS_VM_WRITE) return NULL;
++
+     cid.UniqueProcess = ULongToHandle(id);
+     cid.UniqueThread = 0; /* FIXME ? */
+

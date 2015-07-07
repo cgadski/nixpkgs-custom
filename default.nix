@@ -6,4 +6,5 @@ in
 {
   tib = callMyPackage ./tib;
   renoise = callMyPackage ./renoise;
+  continuum = callMyPackage ./continuum;
 }
