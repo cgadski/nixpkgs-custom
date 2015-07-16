@@ -8,20 +8,15 @@ let
     };
   
   patched-wine =
-    wine.overrideDerivation (attrs: {
-      patches = [./patch.diff];
-    });
+    wine.overrideDerivation (attrs: { patches = [./patch.diff]; });
 
 in
 
 {
   install = 
-    writeScript "continuum-install" ''
-      ${wine}/bin/wine ${installer}
-    '';
+    writeScript "continuum-install" "${wine}/bin/wine ${installer}";
 
   game = 
-    writeScript "continuum" ''
-      ${patched-wine}/bin/wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Continuum/Continuum.exe
-    '';
+    writeScript "continuum" 
+      "${patched-wine}/bin/wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Continuum/Continuum.exe";
 }

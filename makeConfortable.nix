@@ -17,27 +17,16 @@ let
   newDeriv = {stdenv, mesa_glu, libX11, libXext, libXcursor, libXrandr, gcc, alsaLib}:
     stdenv.mkDerivation rec {
       inherit (deriv) name;
-
-      src = deriv;
-
-      phases = "installPhase";
-
+      src = deriv; phases = "installPhase";
       libs = [mesa_glu libX11 libXext libXcursor libXrandr alsaLib stdenv.cc.cc];
-
       inherit resources bin;
 
       installPhase = ''
         # copy source tree, fill up resources
-        mkdir -p $out
         mkdir -p $out/$resources
         ${unlines (map (lib: "ln -s ${lib}/lib/*.so* $out/$resources/") libs)}
-
         cp -r $src/* $out/
-        
-        # patching file
         patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) --set-rpath $out/$resources $out/$bin
-
       '';
     };
-in
-  pkgs.callPackage newDeriv {}
+in pkgs.callPackage newDeriv {}
